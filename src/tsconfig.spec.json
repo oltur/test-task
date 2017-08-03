@@ -8,13 +8,18 @@
     "types": [
       "jasmine",
       "node"
-    ]
-  },
+    ],
+    "paths": {
+      "@angular/*": [
+        "../node_modules/@angular/*"
+      ]
+    }  },
   "files": [
     "test.ts"
   ],
   "include": [
     "**/*.spec.ts",
-    "**/*.d.ts"
+    "**/*.d.ts",
+    "../node_modules/@types/datatables.net/index.d.ts"
   ]
 }
