@@ -1,0 +1,78 @@
+<div>
+  <h2>Customer Details</h2>
+
+  <div class="row form-row">
+    <div class="col-sm-5">
+      <label for="id">Customer ID</label>
+    </div>
+    <div class="col-sm-7">
+      <input disabled="disabled" type="text" class="form-control" id="id" [(value)]="customer.id">
+    </div>
+  </div>
+
+  <div class="row form-row">
+    <div class="col-sm-5">
+      <label for="firstName">First Name</label>
+    </div>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="firstName" required="required" [(value)]="customer.firstName">
+    </div>
+  </div>
+
+  <div class="row form-row">
+    <div class="col-sm-5">
+      <label for="lastName">Last Name</label>
+    </div>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="lastName" required="required" [(value)]="customer.lastName">
+    </div>
+  </div>
+
+  <div class="row form-row">
+    <div class="col-sm-5">
+      <label for="birthday">Birthday</label>
+    </div>
+    <div class="col-sm-7">
+      <input type="date" class="form-control" id="birthday" required="required" [(valueAsDate)]="customer.birthday">
+    </div>
+  </div>
+
+  <div class="row form-row">
+    <div class="col-sm-5">
+      <label for="gender">Gender</label>
+    </div>
+    <div class="col-sm-7">
+      <select class="form-control" id="gender" [(ngModel)]="customer.gender">
+        <option value="w">Female</option>
+        <option value="m">Male</option>
+        <option value="u">Prefer not to say</option>
+      </select>
+    </div>
+  </div>
+
+    <div class="row form-row">
+    <div class="col-sm-5">
+      <label for="lastContactDate">Last Contact</label>
+    </div>
+    <div class="col-sm-7">
+      <input type="date" class="form-control" id="lastContactDate" [(valueAsDate)]="customer.lastContactDate">
+    </div>
+  </div>
+
+      <div class="row form-row">
+    <div class="col-sm-5">
+      <label for="lifetimeValue">Customer Lifetime Value</label>
+    </div>
+    <div class="col-sm-7">
+      <input type="number" min="0" max="1000000" step='0.01' class="form-control" id="lifetimeValue" [(value)]="customer.lifetimeValue">
+    </div>
+  </div>
+  <div style="background-color: whitesmoke" class="row form-row">
+    <div class="col-sm-5">
+    </div>
+    <div class="col-sm-7">
+      <button type="button" class="btn btn-primary" (click)="doSave()">Save</button>
+      <button type="button" class="btn btn-primary" (click)="doCancel()">Cancel</button>
+    </div>
+  </div>
+</div>

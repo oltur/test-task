@@ -25,9 +25,14 @@ export class CustomerService {
   private customers: Customer[];
   private customerNavigations: CustomerNavigation[];
 
+  private maxCustomerId: number = 1;
+
   private fillCustomers(data) {
     this.customers = [];
     (data as any[]).forEach((item) => {
+      if (this.maxCustomerId < item.id) {
+        this.maxCustomerId = item.id;
+      }
       this.customers.push(
         new Customer(
           item.id,
@@ -83,7 +88,41 @@ export class CustomerService {
     return this.LoadInitData().map(ok => this.customerNavigations);
   }
 
-  public saveData() {
+  public delete(id) {
+    // find and delete
+    for (var i = 0; i < this.customers.length; i++) {
+      var obj = this.customers[i];
+      if (obj.id == id) {
+        this.customers.splice(i, 1);
+        i--;
+      }
+    }
+
+    this.saveData();
+  }
+
+  public get(id): Customer {
+    // find and delete
+    for (var i = 0; i < this.customers.length; i++) {
+      var obj = this.customers[i];
+      if (obj.id == id) {
+        return obj;
+      }
+    }
+    return null;
+  }
+
+  public create(): Customer {
+    var newId = ++this.maxCustomerId;
+    var newCustomer = new Customer(newId);
+    this.customers.push(newCustomer);
+
+    this.saveData();
+
+    return newCustomer;
+  }
+
+  private saveData() {
     localStorage.setItem('customers', JSON.stringify(this.customers));
     localStorage.setItem('customerNavigations', JSON.stringify(this.customerNavigations));
   }

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { CustomerService } from "../services/customer.service";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CustomerService } from "./services/customer.service";
 import { Subject } from "angular-datatables/node_modules/rxjs/Subject";
-import { Customer } from "../models/customer.model";
+import { Customer } from "./models/customer.model";
+import { Router } from "@angular/router";
+import { DataTableDirective } from "angular-datatables";
 
 @Component({
   selector: 'app-main-table',
@@ -11,14 +13,18 @@ import { Customer } from "../models/customer.model";
 })
 export class MainTableComponent implements OnInit {
 
+  constructor(
+    private router: Router,
+    private customerService: CustomerService
+  ) { }
+
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+
   dtOptions: any = {};
   dtTrigger = new Subject();
 
   customers: Customer[];
-
-  constructor(
-    private customerService: CustomerService
-  ) { }
 
   ngOnInit(): void {
 
@@ -39,34 +45,32 @@ export class MainTableComponent implements OnInit {
         { "width": "165px", "targets": 4 }
       ],
       "order": [[1, "asc"]],
-      dom: 'Bfrtip',
-      buttons: [
-        'print',
-        {
-          text: 'Add New Customer',
-          key: '1',
-          action: function (e, dt, node, config) {
-            this.doAddNew();
-          }
-        }
-      ]
     };
   }
 
+
   doAddNew() {
-    alert("Add new");
+    this.router.navigate(['/new-customer']);
   }
 
   doEdit(customerId: number) {
-    alert(customerId);
+    this.router.navigate(['/edit-customer', customerId]);
   }
 
   doDelete(customerId: number) {
-    alert(customerId);
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+
+      this.customerService.delete(customerId);
+
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 
   doShowNavi(customerId: number) {
-    alert(customerId);
+    this.router.navigate(['/customer-navi', customerId]);
   }
 
 }

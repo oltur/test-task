@@ -1,6 +1,8 @@
 <div>
   <h2>Customer Overview</h2>
-  <button type="button" class="btn btn-primary" (click)="doAddNew()">Add New Customer</button>
+  <div style="margin-bottom: 10px;">
+    <button type="button" class="btn btn-primary" (click)="doAddNew()">Add New Customer</button>
+  </div>
   <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="display main-table">
     <thead>
       <tr>
