@@ -67,8 +67,7 @@ export class CustomerService {
       this.fillCustomers(data.customers);
       this.fillCustomerNavigations(data.customerNavigations);
 
-      localStorage.setItem('customers', JSON.stringify(this.customers));
-      localStorage.setItem('customerNavigations', JSON.stringify(this.customerNavigations));
+      this.saveData();
 
       return "OK";
     });
@@ -82,6 +81,11 @@ export class CustomerService {
 
   public getCustomerNavigations(): Observable<CustomerNavigation[]> {
     return this.LoadInitData().map(ok => this.customerNavigations);
+  }
+
+  public saveData() {
+    localStorage.setItem('customers', JSON.stringify(this.customers));
+    localStorage.setItem('customerNavigations', JSON.stringify(this.customerNavigations));
   }
 
 }

@@ -1,21 +1,27 @@
 <div>
+  <h2>Customer Overview</h2>
+  <button type="button" class="btn btn-primary" (click)="doAddNew()">Add New Customer</button>
   <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="display main-table">
     <thead>
       <tr>
-        <th>ID</th>
         <th>First name</th>
         <th>Last name</th>
-        <th>Birthday</th>
         <th>Age</th>
+        <th>Gender</th>
+        <th>Options</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let customer of customers">
-        <td>{{ customer.id }}</td>
         <td>{{ customer.firstName }}</td>
         <td>{{ customer.lastName }}</td>
-        <td>{{ customer.birthday }}</td>
         <td>{{ customer.age }}</td>
+        <td>{{ customer.gender == "m"?"Male":"Female" }}</td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="doEdit(customer.id)">Edit</button>
+          <button type="button" class="btn btn-primary" (click)="doDelete(customer.id)">Delete</button>
+          <button type="button" class="btn btn-success" (click)="doShowNavi(customer.id)">Navi</button>
+        </td>
       </tr>
     </tbody>
   </table>

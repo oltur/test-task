@@ -11,7 +11,7 @@ import { Customer } from "../models/customer.model";
 })
 export class MainTableComponent implements OnInit {
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: any = {};
   dtTrigger = new Subject();
 
   customers: Customer[];
@@ -31,9 +31,42 @@ export class MainTableComponent implements OnInit {
     //   //tbd
     // });
 
+
     this.dtOptions = {
-      pagingType: 'full_numbers'
+      pagingType: 'full_numbers',
+      columnDefs: [
+        { "width": "50px", "targets": [2, 3] },
+        { "width": "165px", "targets": 4 }
+      ],
+      "order": [[1, "asc"]],
+      dom: 'Bfrtip',
+      buttons: [
+        'print',
+        {
+          text: 'Add New Customer',
+          key: '1',
+          action: function (e, dt, node, config) {
+            this.doAddNew();
+          }
+        }
+      ]
     };
+  }
+
+  doAddNew() {
+    alert("Add new");
+  }
+
+  doEdit(customerId: number) {
+    alert(customerId);
+  }
+
+  doDelete(customerId: number) {
+    alert(customerId);
+  }
+
+  doShowNavi(customerId: number) {
+    alert(customerId);
   }
 
 }
