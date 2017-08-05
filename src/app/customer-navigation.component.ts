@@ -1,7 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { DataTableDirective } from "angular-datatables";
+import { Subject } from "angular-datatables/node_modules/rxjs/Subject";
+
 import { CustomerService } from "./services/customer.service";
+import { CustomerNavigation } from "./models/customer-navigation.model";
+import { Customer } from "./models/customer.model";
 
 @Component({
   selector: 'app-customer-navigation',
@@ -17,10 +23,37 @@ export class CustomerNavigationComponent implements OnInit {
     private customerService: CustomerService
   ) { }
 
-  private customerId: number;
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+
+  dtOptions: any = {};
+  dtTrigger = new Subject();
+
+  private customer: Customer;
+  private customerNavigations: CustomerNavigation[];
 
   ngOnInit() {
-    this.customerId = this.route.snapshot.params['customerId'];
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      columnDefs: [
+        { "width": "200px", "targets": 1 }
+      ],
+      "order": [[1, "asc"]],
+    };
+
+    var customerId = this.route.snapshot.params['customerId'];
+
+    this.customerService.get(customerId).subscribe(customer => this.customer = customer);
+
+    this.customerService.getCustomerNavigationsByCustomerId(customerId).subscribe(customerNavigations => {
+      this.customerNavigations = customerNavigations
+      this.dtTrigger.next();
+    });
+
+  }
+
+  private doBackToOverview() {
+    this.router.navigate(['/']);
   }
 
 }

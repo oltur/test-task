@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="customer">
   <h2>Customer Details</h2>
 
   <div class="row form-row">
@@ -6,7 +6,7 @@
       <label for="id">Customer ID</label>
     </div>
     <div class="col-sm-7">
-      <input disabled="disabled" type="text" class="form-control" id="id" [(value)]="customer.id">
+      <input disabled="disabled" type="text" class="form-control" id="id" [(ngModel)]="customer.id">
     </div>
   </div>
 
@@ -15,7 +15,7 @@
       <label for="firstName">First Name</label>
     </div>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="firstName" required="required" [(value)]="customer.firstName">
+      <input type="text" class="form-control" id="firstName" required="required" [(ngModel)]="customer.firstName">
     </div>
   </div>
 
@@ -24,7 +24,7 @@
       <label for="lastName">Last Name</label>
     </div>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="lastName" required="required" [(value)]="customer.lastName">
+      <input type="text" class="form-control" id="lastName" required="required" [(ngModel)]="customer.lastName">
     </div>
   </div>
 
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-    <div class="row form-row">
+  <div class="row form-row">
     <div class="col-sm-5">
       <label for="lastContactDate">Last Contact</label>
     </div>
@@ -59,12 +59,12 @@
     </div>
   </div>
 
-      <div class="row form-row">
+  <div class="row form-row">
     <div class="col-sm-5">
       <label for="lifetimeValue">Customer Lifetime Value</label>
     </div>
     <div class="col-sm-7">
-      <input type="number" min="0" max="1000000" step='0.01' class="form-control" id="lifetimeValue" [(value)]="customer.lifetimeValue">
+      <input type="number" min="0" max="1000000" step='0.01' class="form-control" id="lifetimeValue" [(ngModel)]="customer.lifetimeValue">
     </div>
   </div>
   <div style="background-color: whitesmoke" class="row form-row">

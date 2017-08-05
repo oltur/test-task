@@ -27,11 +27,24 @@ export class EditCustomerComponent implements OnInit {
   ngOnInit() {
     var customerId = this.route.snapshot.params['id'];
     if (!customerId) {
-      this.customer = this.customerService.create();
+      this.customerService.getNew().subscribe(
+        newCustomer =>
+          this.customer = newCustomer
+      );
     }
     else {
-      this.customer = this.customerService.get(customerId);
+      this.customerService.get(customerId).subscribe(
+        customer =>
+          this.customer = customer);
     }
   }
 
+  private doCancel() {
+    this.router.navigate(['/']);
+  }
+
+  private doSave() {
+    this.customerService.save(this.customer)
+      .subscribe(x => this.router.navigate(['/']));
+  }
 }

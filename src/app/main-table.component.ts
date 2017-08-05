@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CustomerService } from "./services/customer.service";
-import { Subject } from "angular-datatables/node_modules/rxjs/Subject";
-import { Customer } from "./models/customer.model";
 import { Router } from "@angular/router";
+
 import { DataTableDirective } from "angular-datatables";
+import { Subject } from "angular-datatables/node_modules/rxjs/Subject";
+
+import { CustomerService } from "./services/customer.service";
+import { Customer } from "./models/customer.model";
 
 @Component({
   selector: 'app-main-table',
@@ -24,28 +26,24 @@ export class MainTableComponent implements OnInit {
   dtOptions: any = {};
   dtTrigger = new Subject();
 
-  customers: Customer[];
+  private customers: Customer[];
 
   ngOnInit(): void {
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      columnDefs: [
+        { "width": "100px", "targets": [2, 3] },
+        { "width": "165px", "targets": 4 }
+      ],
+      "order": [[1, "asc"]],
+    };
 
     this.customerService.getCustomers().subscribe(data => {
       this.customers = data;
       this.dtTrigger.next();
     });
 
-    // this.customerService.getCustomerNavigations().subscribe(data => {
-    //   //tbd
-    // });
-
-
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      columnDefs: [
-        { "width": "50px", "targets": [2, 3] },
-        { "width": "165px", "targets": 4 }
-      ],
-      "order": [[1, "asc"]],
-    };
   }
 
 
@@ -60,12 +58,13 @@ export class MainTableComponent implements OnInit {
   doDelete(customerId: number) {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
 
-      this.customerService.delete(customerId);
+      this.customerService.delete(customerId).subscribe(() => {
 
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        this.dtTrigger.next();
+      });
     });
   }
 

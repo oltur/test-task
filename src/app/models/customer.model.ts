@@ -11,6 +11,17 @@ export class Customer {
     public lifetimeValue?: Number
   ) { }
 
+  public copyFrom(source: any)
+  {
+     this.firstName = source.firstName;
+     this.lastName = source.lastName;
+     this.birthday = source.birthday
+     this.gender = source.gender;
+
+     this.lastContactDate = source.lastContactDate;
+     this.lifetimeValue = source.lifetimeValue;
+  }
+
   public get age(): number {
     if(!this.birthday){
       return 0;

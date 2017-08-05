@@ -47,12 +47,18 @@ export class CustomerService {
     });
   }
 
+  private customerNavigationsPropertyNameReplacer(key, value) {
+    if (key == "customer") return undefined;
+    else return value;
+  }
+
   private fillCustomerNavigations(data) {
     this.customerNavigations = [];
     (data as any[]).forEach((item) => {
       this.customerNavigations.push(
         new CustomerNavigation(
           this.customers.find(c => (c.id == item.customerId)),
+          item.customerId,
           item.pages,
           new Date(item.timeStamp)
         )
@@ -60,7 +66,7 @@ export class CustomerService {
     });
   }
 
-  LoadInitData(): Observable<any> {
+  loadInitData(): Observable<any> {
 
     let result = this.http.get('/assets/data/initData.json').map((data: any) => {
       if (this.customers && this.customerNavigations)
@@ -81,50 +87,86 @@ export class CustomerService {
   }
 
   public getCustomers(): Observable<Customer[]> {
-    return this.LoadInitData().map(ok => this.customers);
+    return this.loadInitData().map(ok => this.customers);
   }
 
   public getCustomerNavigations(): Observable<CustomerNavigation[]> {
-    return this.LoadInitData().map(ok => this.customerNavigations);
+    return this.loadInitData().map(ok => this.customerNavigations);
+  }
+
+  public getCustomerNavigationsByCustomerId(customerId): Observable<CustomerNavigation[]> {
+    return this.loadInitData().map(
+      ok =>
+        this.customerNavigations.filter(
+          x =>
+            x.customer.id == customerId
+        )
+    );
   }
 
   public delete(id) {
-    // find and delete
-    for (var i = 0; i < this.customers.length; i++) {
-      var obj = this.customers[i];
-      if (obj.id == id) {
-        this.customers.splice(i, 1);
-        i--;
-      }
-    }
+    return this.loadInitData().map(ok => {
 
-    this.saveData();
+      // find and delete navis
+      for (var i = 0; i < this.customerNavigations.length; i++) {
+        var obj2 = this.customerNavigations[i];
+        if (obj2.customer.id == id) {
+          this.customerNavigations.splice(i, 1);
+          i--;
+        }
+      }
+
+      // find and delete customers
+      for (var i = 0; i < this.customers.length; i++) {
+        var obj = this.customers[i];
+        if (obj.id == id) {
+          this.customers.splice(i, 1);
+          i--;
+        }
+      }
+
+      this.saveData();
+    });
   }
 
-  public get(id): Customer {
-    // find and delete
-    for (var i = 0; i < this.customers.length; i++) {
-      var obj = this.customers[i];
-      if (obj.id == id) {
-        return obj;
+  public get(id): Observable<Customer> {
+    return this.loadInitData().map(ok => {
+      for (var i = 0; i < this.customers.length; i++) {
+        var obj = this.customers[i];
+        if (obj.id == id) {
+          return obj;
+        }
       }
-    }
-    return null;
+      return null;
+    });
   }
 
-  public create(): Customer {
-    var newId = ++this.maxCustomerId;
-    var newCustomer = new Customer(newId);
-    this.customers.push(newCustomer);
+  public getNew(): Observable<Customer> {
+    return this.loadInitData().map(ok => {
+      var newId = ++this.maxCustomerId;
+      var newCustomer = new Customer(newId);
 
-    this.saveData();
+      return newCustomer;
+    });
+  }
 
-    return newCustomer;
+  public save(customer: Customer): Observable<Customer> {
+    return this.get(customer.id).map(existing => {
+      if (!existing) {
+        this.customers.push(customer);
+      }
+      else {
+        existing.copyFrom(customer);
+      }
+      this.saveData();
+      
+      return customer;
+    });
   }
 
   private saveData() {
     localStorage.setItem('customers', JSON.stringify(this.customers));
-    localStorage.setItem('customerNavigations', JSON.stringify(this.customerNavigations));
+    localStorage.setItem('customerNavigations', JSON.stringify(this.customerNavigations, this.customerNavigationsPropertyNameReplacer));
   }
 
 }

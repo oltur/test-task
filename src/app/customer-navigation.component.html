@@ -1,3 +1,20 @@
-<p>
-  customer-navigation works!
-</p>
+<div>
+  <h2>Navigation Data for {{customer.firstName}} {{customer.lastName}}</h2>
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="display main-table">
+    <thead>
+      <tr>
+        <th>Page</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customerNavigation of customerNavigations">
+        <td>{{ customerNavigation.pages }}</td>
+        <td>{{ customerNavigation.timeStamp | date: 'yyyy/MM/dd HH:mm:ss' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin-top: 10px;">
+    <button type="button" class="btn btn-primary" (click)="doBackToOverview()">Back To Overview</button>
+  </div>
+</div>
