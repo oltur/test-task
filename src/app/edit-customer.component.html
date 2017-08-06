@@ -33,7 +33,7 @@
       <label for="birthday">Birthday</label>
     </div>
     <div class="col-sm-7">
-      <input type="date" class="form-control" id="birthday" required="required" [(valueAsDate)]="customer.birthday">
+      <input type="date" class="form-control" id="birthday" required="required"  [ngModel]="customer.birthday | date:'yyyy-MM-dd'" (ngModelChange)="customer.birthday = $event">
     </div>
   </div>
 
@@ -55,7 +55,7 @@
       <label for="lastContactDate">Last Contact</label>
     </div>
     <div class="col-sm-7">
-      <input type="date" class="form-control" id="lastContactDate" [(valueAsDate)]="customer.lastContactDate">
+      <input type="date" class="form-control" id="lastContactDate"  [ngModel]="customer.lastContactDate | date:'yyyy-MM-dd'" (ngModelChange)="customer.lastContactDate = $event">
     </div>
   </div>
 

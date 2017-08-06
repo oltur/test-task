@@ -1,4 +1,10 @@
-# TestTask
+# Test Task for WebTrekk.
+
+## Known issues
+* Date picker in Firefox and IE is not available
+* Number input validation is not supported in all browsers
+* Some malformatted values and errors in console in Internet Explorer
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.6.
 

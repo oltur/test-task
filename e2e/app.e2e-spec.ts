@@ -9,6 +9,6 @@ describe('test-task App', () => {
 
   it('should display title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Test task');
+    expect(page.getParagraphText()).toEqual('Test Task for WebTrekk');
   });
 });

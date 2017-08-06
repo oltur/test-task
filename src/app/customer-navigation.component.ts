@@ -41,7 +41,7 @@ export class CustomerNavigationComponent implements OnInit {
       "order": [[1, "asc"]],
     };
 
-    var customerId = this.route.snapshot.params['customerId'];
+    var customerId = this.route.snapshot.params['customerId'] ? this.route.snapshot.params['customerId'] : 2;
 
     this.customerService.get(customerId).subscribe(customer => this.customer = customer);
 
