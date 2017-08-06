@@ -7,7 +7,7 @@ import { Router, NavigationEnd, Event } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Test Task for WebTrekk';
+  title = 'Angular 4 Sample App';
 
   constructor(
     private router: Router

@@ -9,6 +9,6 @@ describe('test-task App', () => {
 
   it('should display title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Test Task for WebTrekk');
+    expect(page.getParagraphText()).toEqual('Angular 4 Sample App');
   });
 });

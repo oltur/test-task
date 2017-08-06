@@ -42,9 +42,6 @@ describe('CustomerNavigationComponent', () => {
         HttpClientModule,
         AppRoutingModule,
         FormsModule
-        // ,RouterTestingModule.withRoutes([
-        //   { path: '/customer-navi/:customerId', component: CustomerNavigationComponent }
-        //])
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
