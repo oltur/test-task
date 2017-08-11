@@ -14,6 +14,7 @@ import { MainTableComponent } from './main-table.component';
 import { EditCustomerComponent } from './edit-customer.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { CustomerNavigationComponent } from './customer-navigation.component';
+import { SandboxComponent } from './sandbox.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CustomerNavigationComponent } from './customer-navigation.component';
     MainTableComponent,
     EditCustomerComponent,
     PageNotFoundComponent,
-    CustomerNavigationComponent
+    CustomerNavigationComponent,
+    SandboxComponent
   ],
   imports: [
     BrowserModule,

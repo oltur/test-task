@@ -30,7 +30,7 @@ describe('CustomerService', () => {
       "customers": [
         {
           "id": 1,
-          "firstName": "Peter",
+          "firstName": "Peter", 
           "lastName": "Smith",
           "birthday": "1996-10-12",
           "gender": "m",

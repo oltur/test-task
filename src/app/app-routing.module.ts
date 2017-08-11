@@ -6,9 +6,10 @@ import { PageNotFoundComponent }  from './page-not-found.component';
 import { MainTableComponent }  from './main-table.component';
 import { EditCustomerComponent }  from './edit-customer.component';
 import { CustomerNavigationComponent } from "./customer-navigation.component";
+import { SandboxComponent } from "./sandbox.component";
 
 const appRoutes: Routes = [
-  // { path: 'customers-list', component: MainTableComponent },
+  { path: 'sandbox', component: SandboxComponent },
   { path: 'edit-customer/:id', component: EditCustomerComponent },
   { path: 'new-customer', component: EditCustomerComponent },
   { path: 'customer-navi/:customerId', component: CustomerNavigationComponent },
