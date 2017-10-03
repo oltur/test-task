@@ -29,8 +29,8 @@ export class CustomerNavigationComponent implements OnInit {
   dtOptions: any = {};
   dtTrigger = new Subject();
 
-  private customer: Customer;
-  private customerNavigations: CustomerNavigation[];
+  public customer: Customer;
+  public customerNavigations: CustomerNavigation[];
 
   ngOnInit() {
     this.dtOptions = {
@@ -52,7 +52,7 @@ export class CustomerNavigationComponent implements OnInit {
 
   }
 
-  private doBackToOverview() {
+  public doBackToOverview() {
     this.router.navigate(['/']);
   }
 

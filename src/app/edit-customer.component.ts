@@ -22,7 +22,7 @@ export class EditCustomerComponent implements OnInit {
     private customerService: CustomerService
   ) { }
 
-  private customer: Customer;
+  public customer: Customer;
 
   ngOnInit() {
     var customerId = this.route.snapshot.params['id'];

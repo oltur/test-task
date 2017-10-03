@@ -26,7 +26,7 @@ export class MainTableComponent implements OnInit {
   dtOptions: any = {};
   dtTrigger = new Subject();
 
-  private customers: Customer[];
+  public customers: Customer[];
 
   ngOnInit(): void {
 
