@@ -1,10 +1,6 @@
-# Angular 4 Sample App.
+# Customers List application based on Angular 4 Sample App.
 
-## Known issues
-* Date picker in Firefox and IE is not available
-* Number input validation is not supported in all browsers
-* Some malformatted values and errors in console in Internet Explorer
-* No comments in code. Time issue...
+Done for testing the Angular concepts in development and testing.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.6.
 
